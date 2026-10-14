@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Do Mercado à Docência</title>
+  <meta name="description" content="Programação, Redes e os Desafios na Era da IA — Técnico em Informática, IFFar Campus Júlio de Castilhos">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ícones (sprite SVG) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+      <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+      <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M8 21h8"/></symbol>
+      <symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+      <symbol id="i-net" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></symbol>
+      <symbol id="i-grad" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></symbol>
+    </defs>
+  </svg>
+
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="grid-floor" aria-hidden="true"></div>
+
+  <header class="hud">
+    <div class="hud-brand"><span class="live"></span>IFFar · Júlio de Castilhos</div>
+    <div class="hud-title" id="hudTitle"></div>
+    <div class="hud-right">
+      <span class="timer" id="timer" title="Tempo de apresentação">00:00</span>
+      <span id="counter">01 / 13</span>
+      <button id="fsBtn" class="icon-btn" title="Tela cheia (F)" aria-label="Tela cheia">⛶</button>
+    </div>
+  </header>
+  <div class="progress"><div id="progressBar"></div></div>
+
+  <main id="deck">
+
+    <!-- ============ 01 · CAPA ============ -->
+    <section class="slide s-cover" data-title="Início" data-hue="150" data-hook="cover">
+      <div class="wrap cover">
+        <p class="r" style="--d:0"><span class="pill"><span class="live"></span>Técnico em Informática Integrado ao Ensino Médio</span></p>
+        <h1 class="cover-title">
+          <span class="r line" style="--d:1"><span class="glitch" data-text="Do Mercado">Do Mercado</span></span>
+          <span class="r line" style="--d:2"><span class="glitch grad" data-text="à Docência">à Docência</span></span>
+        </h1>
+        <p class="cover-sub r" style="--d:3">Programação, Redes e os Desafios na <strong>Era da IA</strong></p>
+
+        <div class="cover-bottom">
+          <div class="terminal r" style="--d:4">
+            <div class="term-bar"><i></i><i></i><i></i><span>~/iffar/informatica</span></div>
+            <pre class="term-body" id="coverTerm"></pre>
+          </div>
+          <!-- EDITE: seu nome e seus papéis -->
+          <div class="author r" style="--d:5">
+            <div class="avatar">CT</div>
+            <div>
+              <strong>Cristian Thaiur</strong>
+              <span>Dev · Redes · Professor</span>
+            </div>
+          </div>
+        </div>
+        <p class="start-hint r" style="--d:7">pressione <kbd>→</kbd> para começar</p>
+      </div>
+    </section>
+
+    <!-- ============ 02 · QUEM SOU EU ============ -->
+    <section class="slide" data-title="whoami" data-hue="150">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow r" style="--d:0">// 02 — whoami</p>
+          <h2 class="h r" style="--d:1">Quem está<br>falando com vocês?</h2>
+          <!-- EDITE: um parágrafo curto sobre você -->
+          <p class="lead r" style="--d:2">Alguém que já esteve <em>exatamente</em> onde vocês estão: sentado na carteira, achando que programação era só "decorar comando". Depois vieram o mercado, as redes, os servidores que caem às 18h de sexta… e, por fim, a sala de aula.</p>
+          <div class="roles">
+            <div class="role r" style="--d:3"><svg class="ico"><use href="#i-code"/></svg><span>Programação</span></div>
+            <div class="role r" style="--d:4"><svg class="ico"><use href="#i-net"/></svg><span>Redes &amp; Infra</span></div>
+            <div class="role r" style="--d:5"><svg class="ico"><use href="#i-grad"/></svg><span>Docência</span></div>
+          </div>
+        </div>
+        <!-- EDITE: os valores do objeto abaixo -->
+        <div class="terminal code-card r" style="--d:3">
+          <div class="term-bar"><i></i><i></i><i></i><span>sobre-mim.js</span></div>
+<pre class="term-body code"><span class="t-k">const</span> eu = {
+  nome: <span class="t-s">"Cristian Thaiur"</span>,
+  formacao: <span class="t-s">"Mestrando em Ciência da Computação"</span>,
+  formacao: <span class="t-s">"Especialisa Full Stack"</span>,
+  mercado: [<span class="t-s">"Dev"</span>, <span class="t-s">"Infra"</span>, <span class="t-s">"Consultor"</span>],
+  hoje: <span class="t-s">"Mercado Phone + Unicruz"</span>,
+  cafes_por_dia: <span class="t-n">Infinity</span>,
+  <span class="t-c">// bugs resolvidos: perdi a conta</span>
+};
+
+<span class="t-f">apresentar</span>(eu); <span class="t-c">// 👋</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 · LINHA DO TEMPO ============ -->
+    <section class="slide" data-title="git log" data-hue="170">
+      <div class="wrap">
+        <p class="eyebrow r" style="--d:0">// 03 — trajetória</p>
+        <h2 class="h r" style="--d:1"><span class="mono">$ git log</span> da minha carreira</h2>
+        <!-- EDITE: troque os anos e as mensagens pelos seus marcos reais -->
+        <ol class="gitlog">
+          <li class="r" style="--d:2"><span class="hash">f3a91c2</span><span class="ref">HEAD → main</span><span class="msg"><b>feat:</b> hoje — mercado e sala de aula ao mesmo tempo</span><span class="year">2026</span></li>
+          <li class="r" style="--d:3"><span class="hash">9be0d47</span><span class="msg"><b>feat(docência):</b> primeira aula — o frio na barriga é igual ao primeiro deploy</span><span class="year">[ano]</span></li>
+          <li class="r" style="--d:5"><span class="hash">a04d6f1</span><span class="msg"><b>fix:</b> aprendi que "na minha máquina funciona" não é argumento</span><span class="year">[ano]</span></li>
+          <li class="r" style="--d:4"><span class="hash">51c7e8a</span><span class="msg"><b>refactor(carreira):</b> do código para redes e infraestrutura</span><span class="year">[ano]</span></li>
+          <li class="r" style="--d:6"><span class="hash">7e2b3c9</span><span class="msg"><b>feat:</b> primeiro emprego em TI</span><span class="year">[ano]</span></li>
+          <li class="r" style="--d:7"><span class="hash">0000001</span><span class="msg"><b>init:</b> primeiro <code>Hello, World!</code></span><span class="year">[ano]</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 04 · PROGRAMAÇÃO ============ -->
+    <section class="slide" data-title="Programação" data-hue="145" data-hook="code">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow r" style="--d:0">// 04 — programação</p>
+          <h2 class="h r" style="--d:1">O que o mercado <span class="grad">realmente</span> pede</h2>
+          <ul class="checks">
+            <li class="r" style="--d:2"><b>Lógica &gt; linguagem.</b> Linguagem se aprende em semanas; raciocínio leva anos.</li>
+            <li class="r" style="--d:3"><b>Ler e testar código alheio</b> é boa parte do trabalho — escrever é a menor parte.</li>
+            <li class="r" style="--d:4"><b>Git não é opcional.</b> Ninguém trabalha sozinho num projeto real.</li>
+            <li class="r" style="--d:5"><b>Banco de dados</b> está em praticamente todo sistema que paga salário.</li>
+          </ul>
+        </div>
+        <div class="r" style="--d:3">
+          <div class="terminal">
+            <div class="term-bar"><i></i><i></i><i></i><span>media.py</span></div>
+            <pre class="term-body code" id="codeTyping"></pre>
+          </div>
+          <div class="output" id="codeOutput"><span class="mono">▶ saída</span> Média: 7.8</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 05 · REDES ============ -->
+    <section class="slide" data-title="Redes" data-hue="192">
+      <div class="wrap">
+        <p class="eyebrow r" style="--d:0">// 05 — redes</p>
+        <h2 class="h r" style="--d:1">Tudo o que vocês usam <span class="grad">passa por aqui</span></h2>
+
+        <div class="net-grid">
+          <div class="topology r" style="--d:2">
+            <svg viewBox="0 0 800 300" role="img" aria-label="Topologia de rede: computadores, switch, roteador, internet e servidor">
+              <defs>
+                <path id="p1" d="M110 80 L330 150 L500 150 L640 150 L720 150"/>
+                <path id="p2" d="M110 220 L330 150 L500 150 L640 150 L720 150"/>
+                <path id="p3" d="M720 150 L640 150 L500 150 L330 150 L110 80"/>
+              </defs>
+              <g class="links">
+                <line x1="110" y1="80" x2="330" y2="150"/>
+                <line x1="110" y1="220" x2="330" y2="150"/>
+                <line x1="330" y1="150" x2="500" y2="150"/>
+                <line x1="500" y1="150" x2="610" y2="150"/>
+                <line x1="670" y1="150" x2="720" y2="150"/>
+              </g>
+              <g class="packets">
+                <circle r="6" class="pk a"><animateMotion dur="3.2s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
+                <circle r="6" class="pk b"><animateMotion dur="3.2s" begin="-1.1s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle>
+                <circle r="6" class="pk c"><animateMotion dur="3.2s" begin="-2.1s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
+              </g>
+              <g class="node"><rect x="40" y="55" width="70" height="50" rx="10"/><text x="75" y="85">PC</text><text class="lbl" x="75" y="125">aluno-01</text></g>
+              <g class="node"><rect x="40" y="195" width="70" height="50" rx="10"/><text x="75" y="225">PC</text><text class="lbl" x="75" y="265">aluno-02</text></g>
+              <g class="node"><rect x="290" y="125" width="80" height="50" rx="10"/><text x="330" y="155">SW</text><text class="lbl" x="330" y="195">switch</text></g>
+              <g class="node"><circle cx="500" cy="150" r="30"/><text x="500" y="155">RT</text><text class="lbl" x="500" y="200">roteador</text></g>
+              <g class="node cloud"><ellipse cx="640" cy="150" rx="34" ry="24"/><text x="640" y="155">WAN</text><text class="lbl" x="640" y="200">internet</text></g>
+              <g class="node"><rect x="720" y="115" width="50" height="70" rx="8"/><text x="745" y="155">SRV</text><text class="lbl" x="745" y="205">servidor</text></g>
+            </svg>
+          </div>
+
+          <div class="layers r" style="--d:3" aria-label="Camadas TCP/IP">
+            <div class="layer" style="--i:0"><span>4</span>Aplicação <em>HTTP · DNS · SSH</em></div>
+            <div class="layer" style="--i:1"><span>3</span>Transporte <em>TCP · UDP</em></div>
+            <div class="layer" style="--i:2"><span>2</span>Internet <em>IP · ICMP</em></div>
+            <div class="layer" style="--i:3"><span>1</span>Acesso à rede <em>Ethernet · Wi-Fi</em></div>
+          </div>
+        </div>
+
+        <div class="net-foot">
+          <div class="terminal mini r" style="--d:4">
+<pre class="term-body"><span class="prompt">$</span> ping 8.8.8.8
+64 bytes de 8.8.8.8: icmp_seq=1 ttl=117 tempo=14 ms
+64 bytes de 8.8.8.8: icmp_seq=2 ttl=117 tempo=13 ms
+<span class="ok">--- 0% de perda de pacotes ---</span></pre>
+          </div>
+          <blockquote class="haiku r" style="--d:5">
+            <span>Não é o DNS.</span>
+            <span>Não tem como ser o DNS.</span>
+            <span class="grad">Era o DNS.</span>
+            <cite>— haicai oficial de quem trabalha com redes</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 · MERCADO ============ -->
+    <section class="slide" data-title="Mercado" data-hue="32">
+      <div class="wrap">
+        <p class="eyebrow r" style="--d:0">// 06 — mercado de trabalho</p>
+        <h2 class="h r" style="--d:1">Lições que <span class="grad">nenhum tutorial</span> ensina</h2>
+        <div class="cards4">
+          <article class="card r" style="--d:2"><svg class="ico"><use href="#i-clock"/></svg><h3>Prazo é real</h3><p>Código bom é código entregue. Perfeito e atrasado não paga as contas.</p></article>
+          <article class="card r" style="--d:3"><svg class="ico"><use href="#i-msg"/></svg><h3>Comunicar é técnica</h3><p>Explicar o problema para o cliente vale tanto quanto resolvê-lo.</p></article>
+          <article class="card r" style="--d:4"><svg class="ico"><use href="#i-flame"/></svg><h3>Produção não perdoa</h3><p>Backup, teste e versionamento parecem chatos… até salvarem seu emprego.</p></article>
+          <article class="card r" style="--d:5"><svg class="ico"><use href="#i-book"/></svg><h3>Documentar é cuidar</h3><p>O "você do futuro" (e o seu colega) vai agradecer.</p></article>
+        </div>
+        <!-- EDITE: conte uma história real sua aqui — é o momento mais marcante da palestra -->
+        <div class="story r" style="--d:6">
+          <span class="story-tag">história real</span>
+          <p>"Uso de Wi-Fi na Prefeitura Municipal de Tupanciretã era uma algazarra … e <b>  terminei ganhando meu primeiro emprego</b>."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 07 · DOCÊNCIA ============ -->
+    <section class="slide" data-title="Docência" data-hue="150" data-hook="counters">
+      <div class="wrap">
+        <p class="eyebrow r" style="--d:0">// 07 — docência</p>
+        <h2 class="h r" style="--d:1">Do outro lado da mesa</h2>
+        <p class="bigquote r" style="--d:2">No mercado, eu resolvia problemas.<br>Na sala de aula, ajudo a formar <span class="grad">quem vai resolvê-los.</span></p>
+        <!-- EDITE: os números em data-count -->
+        <div class="stats">
+          <div class="stat r" style="--d:3"><b data-count="10" data-suffix="+">0</b><span>anos de TI</span></div>
+          <div class="stat r" style="--d:4"><b data-count="300" data-suffix="+">0</b><span>alunos</span></div>
+          <div class="stat r" style="--d:5"><b data-count="3">0</b><span>áreas: código, redes e ensino</span></div>
+          <div class="stat r" style="--d:6"><b>∞</b><span>vezes que ouvi <em>"professor, vai cair na prova?"</em></span></div>
+        </div>
+        <div class="bridge r" style="--d:7">
+          <span>O que eu trago do mercado:</span>
+          <em>projetos reais</em><em>ferramentas que as empresas usam</em><em>os erros que eu cometi — para vocês não cometerem</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 08 · ERA DA IA (capítulo) ============ -->
+    <section class="slide s-ai" data-title="Era da IA" data-hue="268" data-hook="scramble">
+      <div class="orbits" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="wrap center">
+        <p class="eyebrow r" style="--d:0">// 08 — o capítulo que está sendo escrito agora</p>
+        <h2 class="mega r" style="--d:1" data-scramble="A ERA DA IA">A ERA DA IA</h2>
+        <p class="lead center r" style="--d:2">Ela chegou ao mercado, às redes e à sala de aula — tudo ao mesmo tempo.<br><strong>A pergunta não é <em>se</em> vocês vão usar IA. É <em>como</em>.</strong></p>
+        <div class="marquee r" style="--d:3" aria-hidden="true">
+          <div class="marquee-track">
+            <span>gerar código</span><span>revisar PRs</span><span>analisar logs</span><span>detectar ataques</span><span>escrever documentação</span><span>configurar servidores</span><span>explicar erros</span><span>criar testes</span>
+            <span>gerar código</span><span>revisar PRs</span><span>analisar logs</span><span>detectar ataques</span><span>escrever documentação</span><span>configurar servidores</span><span>explicar erros</span><span>criar testes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 09 · DEMO IA ============ -->
+    <!-- Slide em passos: cada → revela um elemento com data-step="n" (total em data-steps) -->
+    <section class="slide" data-title="Demo: IA" data-hue="268" data-hook="chat" data-steps="5">
+      <div class="wrap split chat-split">
+        <div>
+          <p class="eyebrow r" style="--d:0">// 09 — demonstração</p>
+          <h2 class="h r" style="--d:1">A IA escreve rápido.<br><span class="grad punch" data-step="5">Quem revisa é você.</span></h2>
+          <p class="lead r" style="--d:2">Pedi para uma IA criar o login de um sistema em PHP.
+            <span class="lead-more" data-step="3">O código funciona… e abre a porta para qualquer um entrar.</span></p>
+          <div class="warns">
+            <div class="warn" data-step="3"><b>⚠ SQL Injection</b> — e se alguém digitar <code>' OR '1'='1</code> no usuário?</div>
+            <div class="warn" data-step="4"><b>⚠ Senha em texto puro</b> — cadê o hash? Um vazamento expõe todo mundo.</div>
+          </div>
+          <div class="step-ctrl r" style="--d:3">
+            <div class="pips" aria-hidden="true"></div>
+            <button class="btn" id="replayChat"><svg class="ico"><use href="#i-refresh"/></svg>recomeçar</button>
+          </div>
+        </div>
+        <div class="chat r" style="--d:2">
+          <div class="bubble user" id="chatPrompt" data-step="1"></div>
+          <div class="bubble ai typing-dots" id="chatTyping"><i></i><i></i><i></i></div>
+          <div class="bubble ai" id="aiBubble">
+            <span class="ai-tag">IA</span>
+            <pre class="code" id="aiCode"></pre>
+          </div>
+          <div class="bubble human" id="humanFix" data-step="5">
+            <span class="ai-tag ok">✔ revisão humana</span>
+<pre class="code"><span class="t-v">$stmt</span> = <span class="t-v">$conn</span>-&gt;<span class="t-f">prepare</span>(
+  <span class="t-s">"SELECT senha_hash FROM usuarios WHERE user = ?"</span>);
+<span class="t-v">$stmt</span>-&gt;<span class="t-f">bind_param</span>(<span class="t-s">"s"</span>, <span class="t-v">$user</span>);
+<span class="t-c">// ...busca o hash e compara com segurança</span>
+<span class="t-k">return</span> <span class="t-f">password_verify</span>(<span class="t-v">$senha</span>, <span class="t-v">$hash</span>);</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 · MITO OU VERDADE ============ -->
+    <section class="slide" data-title="Mito ou verdade" data-hue="292">
+      <div class="wrap">
+        <p class="eyebrow r" style="--d:0">// 10 — vamos votar?</p>
+        <h2 class="h r" style="--d:1">Mito ou verdade? <small>clique para revelar</small></h2>
+        <div class="flips">
+          <button class="flip r" style="--d:2"><span class="face front"><span>"A IA vai substituir <b>todos</b> os programadores."</span></span><span class="face back myth"><b>MITO</b>Ela muda o trabalho. Quem só copia é substituível; quem entende o problema, não.</span></button>
+          <button class="flip r" style="--d:3"><span class="face front"><span>"Com IA, não preciso mais aprender lógica."</span></span><span class="face back myth"><b>MITO</b>Sem base, você não tem como saber se a resposta está certa — e ela erra.</span></button>
+          <button class="flip r" style="--d:4"><span class="face front"><span>"A IA às vezes inventa respostas com total confiança."</span></span><span class="face back truth"><b>VERDADE</b>Isso se chama alucinação. Sempre verifique a fonte.</span></button>
+          <button class="flip r" style="--d:5"><span class="face front"><span>"Quem sabe usar IA bem produz mais."</span></span><span class="face back truth"><b>VERDADE</b>Como uma calculadora: potencializa quem já sabe a matemática.</span></button>
+          <button class="flip r" style="--d:6"><span class="face front"><span>"IA não tem nada a ver com redes."</span></span><span class="face back myth"><b>MITO</b>Todo modelo roda em data centers conectados por redes. Sem infra, não existe IA.</span></button>
+          <button class="flip r" style="--d:7"><span class="face front"><span>"Colar dados da empresa no chat da IA é seguro."</span></span><span class="face back myth"><b>MITO</b>O que você envia sai da sua máquina. Privacidade e LGPD importam.</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11 · DESAFIOS ============ -->
+    <section class="slide" data-title="Desafios" data-hue="350">
+      <div class="wrap">
+        <p class="eyebrow r" style="--d:0">// 11 — desafios</p>
+        <h2 class="h r" style="--d:1">O que a IA <span class="grad">não faz</span> por vocês</h2>
+        <div class="cards6">
+          <article class="card r" style="--d:2"><svg class="ico"><use href="#i-bulb"/></svg><h3>Pensamento crítico</h3><p>Saber perguntar, duvidar e validar a resposta.</p></article>
+          <article class="card r" style="--d:3"><svg class="ico"><use href="#i-layers"/></svg><h3>Fundamentos sólidos</h3><p>Lógica, redes e banco de dados: é o que permite enxergar o erro.</p></article>
+          <article class="card r" style="--d:4"><svg class="ico"><use href="#i-shield"/></svg><h3>Segurança</h3><p>Código gerado também tem vulnerabilidade. Revisar é obrigatório.</p></article>
+          <article class="card r" style="--d:5"><svg class="ico"><use href="#i-scale"/></svg><h3>Ética e viés</h3><p>Modelos aprendem com dados humanos — e herdam nossos preconceitos.</p></article>
+          <article class="card r" style="--d:6"><svg class="ico"><use href="#i-server"/></svg><h3>Infraestrutura</h3><p>IA consome energia, rede e hardware. Alguém precisa manter tudo de pé.</p></article>
+          <article class="card r" style="--d:7"><svg class="ico"><use href="#i-refresh"/></svg><h3>Aprender sempre</h3><p>A ferramenta de hoje muda amanhã. A capacidade de aprender, não.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 12 · ROADMAP ============ -->
+    <section class="slide" data-title="Roadmap" data-hue="160">
+      <div class="wrap">
+        <p class="eyebrow r" style="--d:0">// 12 — para vocês</p>
+        <h2 class="h r" style="--d:1">Seu próximo <span class="mono grad">deploy</span></h2>
+        <ol class="roadmap">
+          <li class="r" style="--d:2"><span class="step">01</span><h3>Domine a base</h3><p>Lógica, Linux, redes e banco de dados.</p></li>
+          <li class="r" style="--d:3"><span class="step">02</span><h3>Construa coisas</h3><p>Projetos no GitHub falam mais alto que qualquer currículo.</p></li>
+          <li class="r" style="--d:4"><span class="step">03</span><h3>IA como copiloto</h3><p>Use para aprender e acelerar — nunca para pular o aprendizado.</p></li>
+          <li class="r" style="--d:5"><span class="step">04</span><h3>Fale e escreva bem</h3><p>Comunicação abre portas que o código sozinho não abre.</p></li>
+          <li class="r" style="--d:6"><span class="step">05</span><h3>Compartilhe</h3><p>Ensine um colega. Quem ensina aprende duas vezes.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 13 · ENCERRAMENTO ============ -->
+    <section class="slide s-end" data-title="Obrigado" data-hue="150" data-hook="matrix">
+      <canvas class="matrix" aria-hidden="true"></canvas>
+      <div class="wrap center">
+        <p class="eyebrow r" style="--d:0"><span class="mono">$ exit</span> — processo finalizado com sucesso</p>
+        <h2 class="mega r" style="--d:1">Obrigado, <span class="grad">turma!</span></h2>
+        <p class="lead center r" style="--d:2">Agora é com vocês: <strong>perguntas?</strong></p>
+        <!-- EDITE: seus contatos -->
+        <div class="contacts r" style="--d:3">
+          <span><b>e-mail</b> cristian.thaiur@dataplace.net.br</span>
+          <span><b>linkedin</b> /in/cristian-thaiur-nonnenmacher</span>
+          <span><b>github</b> @cthaiur</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="dots" id="dots" aria-label="Slides"></nav>
+  <div class="nav-btns">
+    <button class="icon-btn" id="prevBtn" aria-label="Slide anterior">←</button>
+    <button class="icon-btn" id="nextBtn" aria-label="Próximo slide">→</button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
